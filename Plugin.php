@@ -1,8 +1,8 @@
 <?php
 /**
- * Fancybox
+ * FancyBox
  *
- * @package Fancybox
+ * @package FancyBox
  * @author 路飞
  * @version 0.0.1
  * @link http://zz8.me/
@@ -12,14 +12,18 @@ class FancyBox_Plugin implements Typecho_Plugin_Interface{
     /* 激活插件方法 */
     public static function activate(){
         //启用插件时执行以下操作
-        Typecho_Plugin::factory('Widget_Archive')->addResource = array('FancyBox_Plugin', 'addResource');
-        Typecho_Plugin::factory('Widget_Archive')->render = array('FancyBox_Plugin', 'render');
+        Typecho_Plugin::factory('Widget_Archive')->header = array('FancyBox_Plugin', 'header');
+        Typecho_Plugin::factory('Widget_Archive')->footer = array('FancyBox_Plugin', 'footer');
         return "插件已激活，快去写个文章添加个图片试试吧！";
     }
 
     /*加载资源*/
-    public static function addResource(){
-        $Path = Helper::options()->pluginUrl . '/Fancybox/';
+    public static function header(){
+        $Path = Helper::options()->pluginUrl . '/FancyBox/';
+        $Options = Helper::options()->plugin('FancyBox');
+        if (!$Options->jquery || !in_array('jquery', $Options->jquery)) {
+            echo '<script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>';
+        }
         //加载fancybox css 文件
         echo '<link rel="stylesheet" type="text/css" href="' . $Path . 'css/jquery.fancybox.min.css" />';
         //加载fancybox js 文件
@@ -42,16 +46,18 @@ class FancyBox_Plugin implements Typecho_Plugin_Interface{
     public static function personalConfig(Typecho_Widget_Helper_Form $form){}
 
     /* 插件实现方法 */
-    public static function render(){
-        //初始化插件，如需配置其它功能，请查看官网 API https://fancyapps.com/fancybox/3/docs/
-        echo `
+    public static function footer(){
+        echo '
             <script>
-                $('[data-fancybox="gallery"]').fancybox({
-                    thumbs : {
-                        autoStart : true
-                    },
-                });
+                window.onload = function(){
+                    //初始化插件，如需配置其它功能，请查看官网 API https://fancyapps.com/fancybox/3/docs/
+                    $("[data-fancybox=gallery]").fancybox({
+                        thumbs : {
+                            autoStart : true
+                        },
+                    });
+                }
             </script>
-        `;
+        ';
     }
 }
