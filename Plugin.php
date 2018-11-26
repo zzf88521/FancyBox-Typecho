@@ -46,18 +46,5 @@ class FancyBox_Plugin implements Typecho_Plugin_Interface{
     public static function personalConfig(Typecho_Widget_Helper_Form $form){}
 
     /* 插件实现方法 */
-    public static function footer(){
-        echo '
-            <script>
-                window.onload = function(){
-                    //初始化插件，如需配置其它功能，请查看官网 API https://fancyapps.com/fancybox/3/docs/
-                    $("[data-fancybox=gallery]").fancybox({
-                        thumbs : {
-                            autoStart : true
-                        },
-                    });
-                }
-            </script>
-        ';
-    }
+    public static function footer(){}
 }
