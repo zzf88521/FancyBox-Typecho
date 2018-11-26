@@ -21,7 +21,11 @@
 
 例: 
 
-`<a data-fancybox="gallery" href="http://thyrsi.com/t6/616/1543141569x2890197513.jpg"><img src="http://thyrsi.com/t6/616/1543141569x2890197513.jpg"></a>`
+```html
+<a data-fancybox="gallery" href="http://thyrsi.com/t6/616/1543141569x2890197513.jpg">
+  <img src="http://thyrsi.com/t6/616/1543141569x2890197513.jpg">
+</a>
+```
 
 这是单个图片，其中`data-fancybox="gallery`表示一个组，如果页面存在多个`data-fancybox="gallery`的图片，则自动形成相册。
 
